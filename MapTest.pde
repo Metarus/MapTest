@@ -21,7 +21,7 @@ void draw() {
   player.update();
   map.display(0, 0, width, height, 0, 0, 32, 18);
   player.display();
-  println(frameRate);
+  //println(frameRate);
 }
 
 void keyPressed() {

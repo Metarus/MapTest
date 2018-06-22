@@ -4,7 +4,7 @@ class Player extends Entity {
     super(x, y, 2*blockWidth, 3*blockHeight, true);
   }
   void move() {
-    if(w) addVel(0, -5);
+    if(w&&onGround) addVel(0, -30);
     if(a) addVel(-5, 0);
     if(s) addVel(0,  5);
     if(d) addVel(5,  0);
