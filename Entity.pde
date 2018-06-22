@@ -19,12 +19,16 @@ class Entity {
       for(int i=0; i<floor(dim.x/(blockWidth))+2; i++) {
         if(i!=floor(dim.x/(blockWidth)+1)) {
           if(map.tags[map.mapNums[floor((pos.x)/blockWidth)+i][yBlock]][0]) {
-            if(vel.y>=0) onGround=true;
+            if(vel.y>0) onGround=true;
+            if(vel.y>0) pos.y=yBlock*blockHeight-dim.y-1;
+            if(vel.y<0) pos.y=yBlock*blockHeight+blockHeight+1;
             vel.y=0;
           }
         } else {
           if(map.tags[map.mapNums[floor((pos.x+dim.x)/blockWidth)][yBlock]][0]) {
-            if(vel.y>=0) onGround=true;
+            if(vel.y>0) onGround=true;
+            if(vel.y>0) pos.y=yBlock*blockHeight-dim.y-1;
+            if(vel.y<0) pos.y=yBlock*blockHeight+blockHeight+1;
             vel.y=0;
           }
         }
@@ -35,11 +39,15 @@ class Entity {
       } else xBlock=floor((pos.x+vel.x)/(blockWidth));
       for(int i=0; i<floor(dim.y/(blockHeight))+2; i++) {
         if(i!=floor(dim.y/(blockHeight)+1)) {
-          if(map.tags[map.mapNums[xBlock][floor((pos.y)/blockHeight)+i]][0]) {
+          if(map.tags[map.mapNums[xBlock][floor((pos.y+vel.y)/blockHeight)+i]][0]) {
+            if(vel.x>0) pos.x=xBlock*blockWidth-dim.x-1;
+            if(vel.x<0) pos.x=xBlock*blockWidth+blockWidth;
             vel.x=0;
           }
         } else {
-          if(map.tags[map.mapNums[xBlock][floor((pos.y+dim.y)/blockHeight)]][0]) {
+          if(map.tags[map.mapNums[xBlock][floor((pos.y+vel.y+dim.y)/blockHeight)]][0]) {
+            if(vel.x>0) pos.x=xBlock*blockWidth-dim.x-1;
+            if(vel.x<0) pos.x=xBlock*blockWidth+blockWidth;
             vel.x=0;
           }
         }

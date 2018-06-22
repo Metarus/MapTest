@@ -11,7 +11,7 @@ void setup() {
   
   blockWidth=width/32;
   blockHeight=height/18;
-  
+    
   map=new Map("map/mapTiles.png", "map/map.txt", "map/tags.txt", 8, 8, 64, 64);
   player=new Player(width/2, height/2);
 }

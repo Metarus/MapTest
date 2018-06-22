@@ -6,7 +6,7 @@ class Player extends Entity {
   void move() {
     if(w&&onGround) addVel(0, -30);
     if(a) addVel(-5, 0);
-    if(s) addVel(0,  5);
+    //if(s) addVel(0,  5);
     if(d) addVel(5,  0);
   }
 }
