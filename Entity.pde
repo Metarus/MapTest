@@ -54,6 +54,8 @@ class Entity {
       }
     }
     vel.x*=0.8;
+    if(abs(vel.x)>blockWidth-2) vel.x=(blockWidth-2)*(vel.x/abs(vel.x));
+    if(abs(vel.y)>blockHeight-2) vel.y=(blockHeight-2)*(vel.y/abs(vel.y));
     pos.x+=vel.x;
     pos.y+=vel.y;
   }
