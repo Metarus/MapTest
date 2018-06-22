@@ -1,7 +1,7 @@
 class Player extends Entity {
   PVector pos=new PVector(0, 0), vel=new PVector(0, 0);
   Player(float x, float y) {
-    super(x, y, 2*blockWidth, 3*blockHeight, true);
+    super(x, y, 2*blockWidth-10, 2*blockHeight-5, true);
   }
   void move() {
     if(w&&onGround) addVel(0, -30);

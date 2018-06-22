@@ -17,9 +17,9 @@ void setup() {
 }
 
 void draw() {
+  map.display(0, 0, width, height, 0, 0, 32, 18);
   player.move();
   player.update();
-  map.display(0, 0, width, height, 0, 0, 32, 18);
   player.display();
   //println(frameRate);
 }
