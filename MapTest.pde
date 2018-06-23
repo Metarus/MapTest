@@ -1,8 +1,11 @@
+ArrayList <Hook> hooks=new ArrayList<Hook>();
 Player player;
 Map map;
 
 float blockWidth, blockHeight;
-boolean w, a, s, d;
+boolean w, a, s, d, space;
+
+Hook hook;
 
 void setup() {
   noSmooth();
@@ -20,8 +23,12 @@ void draw() {
   map.display(0, 0, width, height, 0, 0, 32, 18);
   player.move();
   player.update();
+  for(int i=0; i<hooks.size(); i++) {
+    hooks.get(i).update();
+    hooks.get(i).hookUpdate();
+    hooks.get(i).display();
+  }
   player.display();
-  //println(frameRate);
 }
 
 void keyPressed() {
@@ -29,6 +36,7 @@ void keyPressed() {
   if(key=='a') a=true;
   if(key=='s') s=true;
   if(key=='d') d=true;
+  if(key==' ') space=true;
 }
 
 void keyReleased() {
@@ -36,4 +44,5 @@ void keyReleased() {
   if(key=='a') a=false;
   if(key=='s') s=false;
   if(key=='d') d=false;
+  if(key==' ') space=false;
 }

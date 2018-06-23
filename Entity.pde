@@ -1,6 +1,7 @@
 class Entity {
   PVector pos=new PVector(0, 0), dim=new PVector(0, 0), vel=new PVector(0, 0);
-  boolean applyPhysics, onGround;
+  boolean applyPhysics, touching[]=new boolean[4];
+  ArrayList <PVector> touchingBlocks=new ArrayList<PVector>();
   Entity(float x, float y, float w, float h, boolean _applyPhysics) {
     dim.x=w;
     dim.y=h;
@@ -9,9 +10,10 @@ class Entity {
     applyPhysics=_applyPhysics;
   }
   void update() {
-    onGround=false;
     if(applyPhysics) {
-      addVel(0, 2);
+      for(int i=0; i<touching.length; i++) {
+        touching[i]=false;
+      }
       int yBlock;
       if(vel.y>0) {
         yBlock=floor((pos.y+vel.y+dim.y)/(blockHeight));
@@ -19,17 +21,13 @@ class Entity {
       for(int i=0; i<floor(dim.x/(blockWidth))+2; i++) {
         if(i!=floor(dim.x/(blockWidth)+1)) {
           if(map.tags[map.mapNums[floor((pos.x)/blockWidth)+i][yBlock]][0]) {
-            if(vel.y>0) onGround=true;
-            if(vel.y>0) pos.y=yBlock*blockHeight-dim.y-1;
-            if(vel.y<0) pos.y=yBlock*blockHeight+blockHeight+1;
-            vel.y=0;
+            touchingBlocks.add(new PVector(floor((pos.x)/blockWidth)+i, yBlock));
+            touchingY(yBlock);
           }
         } else {
           if(map.tags[map.mapNums[floor((pos.x+dim.x)/blockWidth)][yBlock]][0]) {
-            if(vel.y>0) onGround=true;
-            if(vel.y>0) pos.y=yBlock*blockHeight-dim.y-1;
-            if(vel.y<0) pos.y=yBlock*blockHeight+blockHeight+1;
-            vel.y=0;
+            touchingBlocks.add(new PVector(floor((pos.x+dim.x)/blockWidth), yBlock));
+            touchingY(yBlock);
           }
         }
       }
@@ -40,31 +38,40 @@ class Entity {
       for(int i=0; i<floor(dim.y/(blockHeight))+2; i++) {
         if(i!=floor(dim.y/(blockHeight)+1)) {
           if(map.tags[map.mapNums[xBlock][floor((pos.y+vel.y)/blockHeight)+i]][0]) {
-            if(vel.x>0) pos.x=xBlock*blockWidth-dim.x-1;
-            if(vel.x<0) pos.x=xBlock*blockWidth+blockWidth;
-            vel.x=0;
+            touchingBlocks.add(new PVector(xBlock, floor((pos.y+vel.y)/blockHeight)+i));
+            touchingX(xBlock);
           }
         } else {
           if(map.tags[map.mapNums[xBlock][floor((pos.y+vel.y+dim.y)/blockHeight)]][0]) {
-            if(vel.x>0) pos.x=xBlock*blockWidth-dim.x-1;
-            if(vel.x<0) pos.x=xBlock*blockWidth+blockWidth;
-            vel.x=0;
+            touchingBlocks.add(new PVector(xBlock, floor((pos.y+vel.y+dim.y)/blockHeight)));
+            touchingX(xBlock);
           }
         }
       }
     }
-    vel.x*=0.8;
     if(abs(vel.x)>blockWidth-2) vel.x=(blockWidth-2)*(vel.x/abs(vel.x));
     if(abs(vel.y)>blockHeight-2) vel.y=(blockHeight-2)*(vel.y/abs(vel.y));
     pos.x+=vel.x;
     pos.y+=vel.y;
   }
-  
-  void display() {
-    fill(255, 0, 0);
-    rect(pos.x, pos.y, dim.x, dim.y);
+  void touchingY(float yBlock) {
+    if(vel.y>0) touching[2]=true;
+    if(vel.y<0) touching[0]=true;
+    if(vel.y>0) pos.y=yBlock*blockHeight-dim.y-1;
+    if(vel.y<0) pos.y=yBlock*blockHeight+blockHeight+1;
+    vel.y=0;
   }
-  
+  void touchingX(float xBlock) {
+    if(vel.x>0) touching[1]=true;
+    if(vel.x<0) touching[3]=true;
+    if(vel.x>0) pos.x=xBlock*blockWidth-dim.x-1;
+    if(vel.x<0) pos.x=xBlock*blockWidth+blockWidth;
+    vel.x=0;
+  }
+  void addVelVec(float mag, float angle) {
+    vel.x+=mag*cos(angle);
+    vel.y+=mag*sin(angle);
+  }
   void addVel(float velX, float velY) {
     vel.x+=velX;
     vel.y+=velY;
