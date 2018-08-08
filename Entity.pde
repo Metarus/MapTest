@@ -37,11 +37,13 @@ class Entity {
       } else xBlock=floor((pos.x+vel.x)/(blockWidth));
       for(int i=0; i<floor(dim.y/(blockHeight))+2; i++) {
         if(i!=floor(dim.y/(blockHeight)+1)) {
+          //rect(xBlock*blockWidth, floor(((pos.y+vel.y)/blockHeight)+i)*blockHeight, blockWidth, blockHeight);
           if(map.tags[map.mapNums[xBlock][floor((pos.y+vel.y)/blockHeight)+i]][0]) {
             touchingBlocks.add(new PVector(xBlock, floor((pos.y+vel.y)/blockHeight)+i));
             touchingX(xBlock);
           }
         } else {
+          //rect(xBlock*blockWidth, floor((pos.y+vel.y+dim.y)/blockHeight)*blockHeight, blockWidth, blockHeight);
           if(map.tags[map.mapNums[xBlock][floor((pos.y+vel.y+dim.y)/blockHeight)]][0]) {
             touchingBlocks.add(new PVector(xBlock, floor((pos.y+vel.y+dim.y)/blockHeight)));
             touchingX(xBlock);
@@ -49,8 +51,8 @@ class Entity {
         }
       }
     }
-    if(abs(vel.x)>blockWidth-2) vel.x=(blockWidth-2)*(vel.x/abs(vel.x));
-    if(abs(vel.y)>blockHeight-2) vel.y=(blockHeight-2)*(vel.y/abs(vel.y));
+    if(abs(vel.x)>blockWidth-5) vel.x=(blockWidth-2)*(vel.x/abs(vel.x));
+    if(abs(vel.y)>blockHeight-5) vel.y=(blockHeight-2)*(vel.y/abs(vel.y));
     pos.x+=vel.x;
     pos.y+=vel.y;
   }

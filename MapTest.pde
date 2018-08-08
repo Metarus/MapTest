@@ -3,14 +3,13 @@ Player player;
 Map map;
 
 float blockWidth, blockHeight;
-boolean w, a, s, d, space;
+boolean w, a, s, d, e, q, space;
 
 Hook hook;
 
 void setup() {
   noSmooth();
   size(1600, 900);
-  //fullScreen();
   
   blockWidth=width/32;
   blockHeight=height/18;
@@ -29,6 +28,7 @@ void draw() {
     hooks.get(i).display();
   }
   player.display();
+  if(q) hooks.clear();
 }
 
 void keyPressed() {
@@ -36,6 +36,8 @@ void keyPressed() {
   if(key=='a') a=true;
   if(key=='s') s=true;
   if(key=='d') d=true;
+  if(key=='e') e=true;
+  if(key=='q') q=true;
   if(key==' ') space=true;
 }
 
@@ -44,5 +46,7 @@ void keyReleased() {
   if(key=='a') a=false;
   if(key=='s') s=false;
   if(key=='d') d=false;
+  if(key=='e') e=false;
+  if(key=='q') q=false;
   if(key==' ') space=false;
 }
