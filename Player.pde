@@ -14,7 +14,7 @@ class Player extends Entity {
       if(hooks.size()<hookCapacity) {
         PVector hookVel=new PVector(mouseX-pos.x, mouseY-pos.y);
         hookVel.normalize();
-        Hook hook=new Hook(pos.x, pos.y, 50*hookVel.x, 50*hookVel.y, hooks.size());
+        Hook hook=new Hook(pos.x+dim.x/2, pos.y+dim.y/2, 50*hookVel.x, 50*hookVel.y, hooks.size());
         hooks.add(hook);
       }
     }
