@@ -1,7 +1,7 @@
 class Player extends Entity {
-  int hookCapacity=1;
+  int hookCapacity=2;
   Player(float x, float y) {
-    super(x, y, 2*blockWidth-10, 2*blockHeight-5, true);
+    super(x, y, 2*blockWidth-10, 2*blockHeight-5, 1, true);
   }
   void move() {
     addVel(0, 2);
@@ -19,7 +19,7 @@ class Player extends Entity {
       }
     }
     if(touching[2]) vel.x*=0.9;
-    vel.x*=0.95;
+    //vel.x*=.95;
   }
   void display() {
     fill(255, 0, 0);
