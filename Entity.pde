@@ -11,7 +11,8 @@ class Entity {
     weight=_weight;
     applyPhysics=_applyPhysics;
   }
-  void checkCollisions() {
+  void checkCollisions(int tag) {
+    touchingBlocks.clear();
     PVector temp=vel;
     if(abs(temp.x)>blockWidth/1.3) temp.x=(blockWidth/1.3)*(temp.x/abs(vel.x));
     if(abs(temp.y)>blockHeight/1.3) temp.y=(blockHeight/1.3)*(temp.y/abs(vel.y));
@@ -25,12 +26,12 @@ class Entity {
       } else yBlock=floor((pos.y+temp.y)/(blockHeight)); 
       for(int i=0; i<floor(dim.x/(blockWidth))+2; i++) {
         if(i!=floor(dim.x/(blockWidth)+1)) {
-          if(map.tags[map.mapNums[floor((pos.x)/blockWidth)+i][yBlock]][0]) {
+          if(map.tags[map.mapNums[floor((pos.x)/blockWidth)+i][yBlock]][tag]) {
             touchingBlocks.add(new PVector(floor((pos.x)/blockWidth)+i, yBlock));
             touchingY(yBlock);
           }
         } else {
-          if(map.tags[map.mapNums[floor((pos.x+dim.x)/blockWidth)][yBlock]][0]) {
+          if(map.tags[map.mapNums[floor((pos.x+dim.x)/blockWidth)][yBlock]][tag]) {
             touchingBlocks.add(new PVector(floor((pos.x+dim.x)/blockWidth), yBlock));
             touchingY(yBlock);
           }
@@ -43,13 +44,13 @@ class Entity {
       for(int i=0; i<floor(dim.y/(blockHeight))+2; i++) {
         if(i!=floor(dim.y/(blockHeight)+1)) {
           //rect(xBlock*blockWidth, floor(((pos.y+temp.y)/blockHeight)+i)*blockHeight, blockWidth, blockHeight);
-          if(map.tags[map.mapNums[xBlock][floor((pos.y+temp.y)/blockHeight)+i]][0]) {
+          if(map.tags[map.mapNums[xBlock][floor((pos.y+temp.y)/blockHeight)+i]][tag]) {
             touchingBlocks.add(new PVector(xBlock, floor((pos.y+temp.y)/blockHeight)+i));
             touchingX(xBlock);
           }
         } else {
           //rect(xBlock*blockWidth, floor((pos.y+temp.y+dim.y)/blockHeight)*blockHeight, blockWidth, blockHeight);
-          if(map.tags[map.mapNums[xBlock][floor((pos.y+temp.y+dim.y)/blockHeight)]][0]) {
+          if(map.tags[map.mapNums[xBlock][floor((pos.y+temp.y+dim.y)/blockHeight)]][tag]) {
             touchingBlocks.add(new PVector(xBlock, floor((pos.y+temp.y+dim.y)/blockHeight)));
             touchingX(xBlock);
           }

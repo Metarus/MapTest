@@ -1,5 +1,5 @@
 class Player extends Entity {
-  int hookCapacity=2;
+  int hookCapacity=1;
   Player(float x, float y) {
     super(x, y, 2*blockWidth-10, 2*blockHeight-5, 1, true);
   }

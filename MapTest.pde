@@ -21,13 +21,16 @@ void setup() {
 void draw() {
   map.display(0, 0, width, height, 0, 0, 32, 18);
   for(int i=0; i<hooks.size(); i++) {
-    hooks.get(i).checkCollisions();
     hooks.get(i).movement();
     hooks.get(i).hookUpdate();
     hooks.get(i).display();
+    if(hooks.get(i).kill) {
+      hooks.remove(i);
+      i--;
+    }
   }
   player.move();
-  player.checkCollisions();
+  player.checkCollisions(0);
   player.movement();
   player.display();
   if(q) hooks.clear();
