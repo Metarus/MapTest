@@ -4,12 +4,15 @@ Map map;
 
 float blockWidth, blockHeight;
 boolean w, a, s, d, e, q, space;
+Camera cam=new Camera(new PVector(0, 0));
+PGraphics gameSpace;
 
 Hook hook;
 
 void setup() {
   noSmooth();
   size(1600, 900);
+  gameSpace=createGraphics(width*2, height);
   
   blockWidth=width/32;
   blockHeight=height/18;
@@ -19,7 +22,8 @@ void setup() {
 }
 
 void draw() {
-  map.display(0, 0, width, height, 0, 0, 32, 18);
+  gameSpace.beginDraw();
+  map.display(0, 0, width*2, height, 0, 0, 64, 18);
   for(int i=0; i<hooks.size(); i++) {
     hooks.get(i).movement();
     hooks.get(i).hookUpdate();
@@ -34,6 +38,9 @@ void draw() {
   player.movement();
   player.display();
   if(q) hooks.clear();
+  gameSpace.endDraw();
+  cam.update();
+  image(gameSpace, -cam.pos.x, -cam.pos.y, 2*width, height);
 }
 
 void keyPressed() {

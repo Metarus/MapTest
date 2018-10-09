@@ -12,17 +12,17 @@ class Player extends Entity {
     if(d) addVel(2, 0);
     if(e) {
       if(hooks.size()<hookCapacity) {
-        PVector hookVel=new PVector(mouseX-pos.x, mouseY-pos.y);
+        PVector hookVel=new PVector(mouseX+cam.pos.x-pos.x-dim.x/2, mouseY+cam.pos.y-pos.y-dim.y/2);
         hookVel.normalize();
         Hook hook=new Hook(pos.x+dim.x/2, pos.y+dim.y/2, 50*hookVel.x, 50*hookVel.y, hooks.size());
         hooks.add(hook);
       }
     }
     if(touching[2]) vel.x*=0.9;
-    //vel.x*=.95;
+    vel.x*=.95;
   }
   void display() {
-    fill(255, 0, 0);
-    rect(pos.x, pos.y, dim.x, dim.y);
+    gameSpace.fill(255, 0, 0);
+    gameSpace.rect(pos.x, pos.y, dim.x, dim.y);
   }
 }
