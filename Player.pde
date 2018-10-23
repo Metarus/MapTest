@@ -6,10 +6,10 @@ class Player extends Entity {
   void move() {
     addVel(0, 2);
     if(space&&touching[2]) addVel(0, -30);
-    if(a&&touching[2]) addVel(-3, 0);
-    if(a) addVel(-2, 0);
-    if(d&&touching[2]) addVel(3,  0);
-    if(d) addVel(2, 0);
+    if(a&&touching[2]) addVel(-1, 0);
+    if(a) addVel(-1, 0);
+    if(d&&touching[2]) addVel(1,  0);
+    if(d) addVel(1, 0);
     if(e) {
       if(hooks.size()<hookCapacity) {
         PVector hookVel=new PVector(mouseX+cam.pos.x-pos.x-dim.x/2, mouseY+cam.pos.y-pos.y-dim.y/2);
@@ -22,7 +22,7 @@ class Player extends Entity {
     vel.x*=.95;
   }
   void display() {
-    gameSpace.fill(255, 0, 0);
-    gameSpace.rect(pos.x, pos.y, dim.x, dim.y);
+    fill(255, 0, 0);
+    rect(pos.x-cam.pos.x, pos.y-cam.pos.y, dim.x, dim.y);
   }
 }

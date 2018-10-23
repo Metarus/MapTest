@@ -48,7 +48,7 @@ class HookSegment extends Entity {
     vel.y*=0.9;
   }
   void display() {
-    gameSpace.fill(0);
-    gameSpace.rect(pos.x, pos.y, 5, 5);
+    fill(0);
+    rect(pos.x-cam.pos.x, pos.y-cam.pos.y, 5, 5);
   }
 }

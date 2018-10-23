@@ -34,7 +34,7 @@ class Map {
       }
     }
     map.endDraw();
-    gameSpace.image(map, x, y, w, h);
+    image(map, x-cam.pos.x, y-cam.pos.y, w, h);
   }
   
   void writeData() {

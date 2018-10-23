@@ -53,7 +53,7 @@ class Hook extends Entity {
     }
   }
   void display() {
-    gameSpace.fill(0, 255, 0);
-    gameSpace.rect(pos.x, pos.y, dim.x, dim.y);
+    fill(0, 255, 0);
+    rect(pos.x-cam.pos.x, pos.y-cam.pos.y, dim.x, dim.y);
   }
 }
