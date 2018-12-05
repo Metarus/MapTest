@@ -3,7 +3,7 @@ Player player;
 Map map;
 
 float blockWidth, blockHeight;
-boolean w, a, s, d, e, q, space;
+boolean w, a, s, d, e, q, up, down, left, right, space;
 Camera cam=new Camera(new PVector(0, 0));
 
 Hook hook;
@@ -15,7 +15,7 @@ void setup() {
   blockWidth=width/32;
   blockHeight=height/18;
     
-  map=new Map("map/mapTiles.png", "map/map.txt", "map/tags.txt", 8, 8, 64, 64);
+  map=new Map("mapTiles.png", "hub.txt", "tags.txt", 8, 8, 64, 64);
   player=new Player(width/2, height/2);
 }
 
@@ -31,7 +31,7 @@ void draw() {
     }
   }
   player.move();
-  player.checkCollisions(0);
+  player.checkCollisions(0, true);
   player.movement();
   player.display();
   if(q) hooks.clear();
@@ -39,6 +39,10 @@ void draw() {
 }
 
 void keyPressed() {
+  if(keyCode==UP) up=true;
+  if(keyCode==DOWN) down=true;
+  if(keyCode==LEFT) left=true;
+  if(keyCode==RIGHT) right=true;
   if(key=='w') w=true;
   if(key=='a') a=true;
   if(key=='s') s=true;
@@ -49,6 +53,10 @@ void keyPressed() {
 }
 
 void keyReleased() {
+  if(keyCode==UP) up=false;
+  if(keyCode==DOWN) down=false;
+  if(keyCode==LEFT) left=false;
+  if(keyCode==RIGHT) right=false;
   if(key=='w') w=false;
   if(key=='a') a=false;
   if(key=='s') s=false;
@@ -56,4 +64,10 @@ void keyReleased() {
   if(key=='e') e=false;
   if(key=='q') q=false;
   if(key==' ') space=false;
+}
+
+void enterMap(String name) {
+  map.readMap(name);
+  player.reset();
+  cam.pos=new PVector(0, 0);
 }

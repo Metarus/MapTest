@@ -20,9 +20,27 @@ class Player extends Entity {
     }
     if(touching[2]) vel.x*=0.9;
     vel.x*=.95;
+    if(w) {
+      addVel(0, -0.001);
+      touchingBlocks.clear();
+      checkCollisions(3, false);
+      for(int i=0; i<touchingBlocks.size(); i++) {
+        enterDoor(touchingBlocks.get(i));
+      }
+    }
+    touchingBlocks.clear();
+    checkCollisions(2, false);
+    if(touchingBlocks.size()>0) enterMap("hub.txt");
   }
   void display() {
     fill(255, 0, 0);
     rect(pos.x-cam.pos.x, pos.y-cam.pos.y, dim.x, dim.y);
+  }
+  void reset() {
+    pos.x=width/2;
+    pos.y=height/2;
+    vel.x=0;
+    vel.y=0;
+    hooks.clear();
   }
 }

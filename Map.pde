@@ -8,7 +8,7 @@ class Map {
   
   Map(String _spriteSheet, String _map, String _tags, int _tileWidth, int _tagNum, int w, int h) {
     PImage spriteSheet;
-    spriteSheet=loadImage(_spriteSheet);
+    spriteSheet=loadImage("map/"+_spriteSheet);
     
     tileWidth=_tileWidth;
     tagNum=_tagNum;
@@ -65,8 +65,8 @@ class Map {
     writer2.close();
   }
   
-  void readData() {
-    String str1[]=loadStrings(mapLoc);
+  void readMap(String name) {
+    String str1[]=loadStrings("map/"+name);
     if(str1.length!=0) {
       str1=split(str1[0], '.');
       String strings1[][]=new String[str1.length][];
@@ -77,7 +77,12 @@ class Map {
         }
       }
     }
-    String str2[]=loadStrings(tagLoc);
+    mapLoc=name;
+  }
+  
+  void readData() {
+    readMap(mapLoc);
+    String str2[]=loadStrings("map/"+tagLoc);
     if(str2.length!=0) {
     str2=split(str2[0], '.');
       String strings2[][]=new String[str2.length][];

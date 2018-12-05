@@ -9,27 +9,31 @@ class Hook extends Entity {
     index=_index;
   }
   void hookUpdate() {
-    checkCollisions(1);
+    checkCollisions(1, true);
     if(hit) playerForces();
     if(touchingBlocks.size()>0&&!hit) {
       PVector movement=new PVector(player.pos.x-pos.x, player.pos.y-pos.y);
       movement.normalize();
-      for(int i=0; i<=dist(pos.x, pos.y, player.pos.x, player.pos.y)+30; i+=30) {
-        segments.add(new HookSegment(pos.x+movement.x*i, pos.y+movement.y*i, index, i/30));
+      for(int i=0; i<=dist(pos.x, pos.y, player.pos.x, player.pos.y)+30; i+=20) {
+        segments.add(new HookSegment(pos.x+movement.x*i, pos.y+movement.y*i, index, i/20));
       }
       hit=true;
       vel.x=0;
       vel.y=0;
     }
     touchingBlocks.clear();
-    checkCollisions(0);
+    checkCollisions(0, true);
     if(touchingBlocks.size()>0&&!hit) {
       kill=true;
     }
   }
   void playerForces() {
     if(w&&segments.size()>1) {
-      segments.remove(segments.size()-1);
+      if(dist(segments.get(segments.size()-1).pos.x, segments.get(segments.size()-1).pos.y, player.pos.x+player.dim.x/2, player.pos.y+player.dim.y/2)<50) {
+        segments.remove(segments.size()-1);
+      } else {
+        player.addVel(0, -5);
+      }
     }
     if(s) {
       segments.add(new HookSegment(player.pos.x, player.pos.y, index, segments.size()));
@@ -40,12 +44,12 @@ class Hook extends Entity {
     for(int j=0; j<5; j++) {
       for(int i=segments.size()-1; i>=0; i--) {
         segments.get(i).segUpdate1();
-        segments.get(i).checkCollisions(0);
+        segments.get(i).checkCollisions(0, true);
       }
     }
     for(int i=0; i<segments.size(); i++) {
       segments.get(i).segUpdate2();
-      segments.get(i).checkCollisions(0);
+      segments.get(i).checkCollisions(0, true);
     }
     for(int i=0; i<segments.size(); i++) {
       segments.get(i).movement();

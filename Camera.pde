@@ -4,6 +4,10 @@ class Camera {
     pos=start;
   }
   void update() {
+    if(up) pos.y-=10;
+    if(down) pos.y+=10;
+    if(left) pos.x-=10;
+    if(right) pos.x+=10;
     while(player.pos.x-pos.x-width/2-5*blockWidth>0) {
       pos.x++;
     }

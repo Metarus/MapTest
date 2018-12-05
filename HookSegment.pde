@@ -21,7 +21,7 @@ class HookSegment extends Entity {
     }
     forces=new PVector((pos.x+vel.x-nextPos.x), (pos.y+vel.y-nextPos.y));
     forces.normalize();
-    mag=dist(nextPos.x, nextPos.y, pos.x+vel.x, pos.y+vel.y)-30;
+    mag=dist(nextPos.x, nextPos.y, pos.x+vel.x, pos.y+vel.y)-20;
     if(mag<0) mag=0;
     return new PVector(forces.x*mag*totalWeight/2.1, forces.y*mag*totalWeight/2.1);
   }
