@@ -4,6 +4,7 @@ class Player extends Entity {
     super(x, y, 2*blockWidth-10, 2*blockHeight-5, 1, true);
   }
   void move() {
+    getBlocks();
     addVel(0, 2);
     if(space&&touching[2]) addVel(0, -30);
     if(a&&touching[2]) addVel(-1, 0);
@@ -20,17 +21,19 @@ class Player extends Entity {
     }
     if(touching[2]) vel.x*=0.9;
     vel.x*=.95;
-    if(w) {
-      addVel(0, -0.001);
-      touchingBlocks.clear();
-      checkCollisions(3, false);
-      for(int i=0; i<touchingBlocks.size(); i++) {
-        enterDoor(touchingBlocks.get(i));
+    getBlocks();
+    if(w&&touching[2]) {
+      for(int i=0; i<overBlocks.size(); i++) {
+        if(map.checkTag(overBlocks.get(i), 3)) enterDoor(overBlocks.get(i));
       }
     }
-    touchingBlocks.clear();
-    checkCollisions(2, false);
-    if(touchingBlocks.size()>0) enterMap("hub.txt");
+    for(int i=0; i<overBlocks.size(); i++) {
+      if(map.checkTag(overBlocks.get(i), 2)) {
+        enterMap("hub.txt", new PVector(blockWidth*5, blockHeight*3));
+        player.vel.x=0;
+        player.vel.y=-30;
+      }
+    }
   }
   void display() {
     fill(255, 0, 0);

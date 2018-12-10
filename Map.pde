@@ -25,6 +25,10 @@ class Map {
     readData();
   }
   
+  boolean checkTag(PVector pos, int tagNum) {
+    return tags[mapNums[(int)pos.x][(int)pos.y]][tagNum];
+  }
+  
   void display(float x, float y, float w, float h, int startX, int startY, int endX, int endY) {
     PGraphics map=createGraphics((endX-startX)*tileWidth, (endY-startY)*tileWidth);
     map.beginDraw();
@@ -34,7 +38,7 @@ class Map {
       }
     }
     map.endDraw();
-    image(map, x-cam.pos.x, y-cam.pos.y, w, h);
+    image(map, x, y, w, h);
   }
   
   void writeData() {

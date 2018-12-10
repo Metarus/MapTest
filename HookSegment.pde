@@ -49,6 +49,8 @@ class HookSegment extends Entity {
   }
   void display() {
     fill(0);
-    rect(pos.x-cam.pos.x, pos.y-cam.pos.y, 5, 5);
+    strokeWeight(3);
+    if(index!=0) line(pos.x-cam.pos.x+1, pos.y-cam.pos.y+1, hooks.get(hookNum).segments.get(index-1).pos.x-cam.pos.x+1, hooks.get(hookNum).segments.get(index-1).pos.y-cam.pos.y+1);
+    strokeWeight(1);
   }
 }

@@ -3,6 +3,7 @@ class Entity {
   float weight;
   boolean applyPhysics, touching[]=new boolean[4];
   ArrayList <PVector> touchingBlocks=new ArrayList<PVector>();
+  ArrayList <PVector> overBlocks=new ArrayList<PVector>();
   Entity(float x, float y, float w, float h, float _weight, boolean _applyPhysics) {
     dim.x=w;
     dim.y=h;
@@ -55,6 +56,14 @@ class Entity {
             touchingX(xBlock, phys);
           }
         }
+      }
+    }
+  }
+  void getBlocks() {
+    overBlocks.clear();
+    for(int i=(int)(pos.x/blockWidth); i<=(int)((dim.x+pos.x)/blockWidth); i++) {
+      for(int j=(int)(pos.y/blockHeight); j<=(int)((dim.y+pos.y)/blockHeight); j++) {
+        overBlocks.add(new PVector(i, j));
       }
     }
   }
