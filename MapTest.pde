@@ -11,7 +11,8 @@ Hook hook;
 boolean transition=false;
 String transitionMap="";
 PVector transPos;
-int transTime=0, shift=16;
+int transTime=0, shift=32;
+color transitionColor=color(0, 0, 0);
 
 void setup() {
   noSmooth();
@@ -76,17 +77,18 @@ void keyReleased() {
 
 void transition() {
   transTime+=shift;
-  fill(0, transTime);
+  fill(transitionColor, transTime);
   rect(0, 0, width, height);
   if(transTime>255) {
-    shift=-16;
+    shift=-32;
     map.readMap(transitionMap);
     player.reset();
     player.pos=transPos;
+    cam.pos=new PVector(transPos.x-width, transPos.y-height);
   }
   if(transTime==0) {
     transition=false;
-    shift=16;
+    shift=32;
   }
 }
 

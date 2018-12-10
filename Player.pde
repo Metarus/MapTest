@@ -29,6 +29,7 @@ class Player extends Entity {
     }
     for(int i=0; i<overBlocks.size(); i++) {
       if(map.checkTag(overBlocks.get(i), 2)) {
+        transitionColor=color(255, 0, 0);
         enterMap("hub.txt", new PVector(blockWidth*5, blockHeight*3));
         player.vel.x=0;
         player.vel.y=-30;

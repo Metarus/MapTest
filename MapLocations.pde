@@ -1,4 +1,5 @@
 void enterDoor(PVector block) {
+  transitionColor=color(0, 0, 0);
   switch(map.mapLoc) {
     case "hub.txt": 
       if(rectDoor(block, 5, 13, 6, 15)) enterMap("lvl1.txt", new PVector(blockWidth*3, blockHeight*15));
