@@ -58,6 +58,11 @@ class Hook extends Entity {
   }
   void display() {
     fill(0, 255, 0);
+    if(!hit) {
+      strokeWeight(3);
+      line(pos.x-cam.pos.x, pos.y-cam.pos.y, player.pos.x-cam.pos.x+player.dim.x/2, player.pos.y-cam.pos.y+player.dim.y/2);
+      strokeWeight(1);
+    }
     rect(pos.x-cam.pos.x, pos.y-cam.pos.y, dim.x, dim.y);
   }
 }

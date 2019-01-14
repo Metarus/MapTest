@@ -21,11 +21,12 @@ void setup() {
   blockWidth=width/32;
   blockHeight=height/18;
     
-  map=new Map("mapTiles.png", "hub.txt", "tags.txt", 8, 8, 64, 64);
+  map=new Map("mapTiles.png", "lvl1.txt", "tags.txt", 8, 8, 64, 64);
   player=new Player(width/2, height/2);
 }
 
 void draw() {
+  background(255);
   map.display(-cam.pos.x, -cam.pos.y, width*2, height*2*64/36, 0, 0, 64, 64);
   for(int i=0; i<hooks.size(); i++) {
     hooks.get(i).movement();
@@ -43,6 +44,7 @@ void draw() {
   if(transition) transition();
   if(q) hooks.clear();
   cam.update();
+  displayText();
 }
 
 void keyPressed() {
