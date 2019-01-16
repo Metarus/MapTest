@@ -29,6 +29,15 @@ class Map {
     return tags[mapNums[(int)pos.x][(int)pos.y]][tagNum];
   }
   
+  void fillRegion(int block, int x1, int y1, int x2, int y2) {
+    for(int i=x1; i<=x2; i++) {
+      for(int j=y1; j<=y2; j++) {
+        mapNums[i][j]=block;
+      }
+    }
+    writeData();
+  }
+  
   void display(float x, float y, float w, float h, int startX, int startY, int endX, int endY) {
     PGraphics map=createGraphics((endX-startX)*tileWidth, (endY-startY)*tileWidth);
     map.beginDraw();
@@ -42,7 +51,7 @@ class Map {
   }
   
   void writeData() {
-  PrintWriter writer1=createWriter(mapLoc);
+    PrintWriter writer1=createWriter("map/"+mapLoc);
     String write1="";
     for(int i=0; i<mapNums.length; i++) {
       for(int j=0; j<mapNums[i].length; j++) {
@@ -54,7 +63,7 @@ class Map {
     writer1.flush();
     writer1.close();
     
-    PrintWriter writer2=createWriter(tagLoc);
+    PrintWriter writer2=createWriter("map/"+tagLoc);
     String write2="";
     for(int i=0; i<tags.length; i++) {
       for(int j=0; j<tags[i].length; j++) {

@@ -1,5 +1,6 @@
 class Player extends Entity {
   int hookCapacity=1;
+  int hookDelay=0;
   Player(float x, float y) {
     super(x, y, 2*blockWidth-10, 2*blockHeight-5, 1, true);
   }
@@ -11,12 +12,14 @@ class Player extends Entity {
     if(a) addVel(-1, 0);
     if(d&&touching[2]) addVel(1,  0);
     if(d) addVel(1, 0);
+    if(hookDelay>0) hookDelay--;
     if(e) {
-      if(hooks.size()<hookCapacity) {
+      if(hooks.size()<hookCapacity&&hookDelay==0) {
         PVector hookVel=new PVector(mouseX+cam.pos.x-pos.x-dim.x/2, mouseY+cam.pos.y-pos.y-dim.y/2);
         hookVel.normalize();
         Hook hook=new Hook(pos.x+dim.x/2, pos.y+dim.y/2, 50*hookVel.x, 50*hookVel.y, hooks.size());
         hooks.add(hook);
+        hookDelay=30;
       }
     }
     if(touching[2]) vel.x*=0.9;

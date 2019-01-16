@@ -28,14 +28,14 @@ class Hook extends Entity {
     }
   }
   void playerForces() {
-    if(w&&segments.size()>1) {
+    if((w||(r&&index==0)||(t&&index==1))&&segments.size()>1) {
       if(dist(segments.get(segments.size()-1).pos.x, segments.get(segments.size()-1).pos.y, player.pos.x+player.dim.x/2, player.pos.y+player.dim.y/2)<50) {
         segments.remove(segments.size()-1);
       } else {
         player.addVel(0, -5);
       }
     }
-    if(s) {
+    if((s||(f&&index==0)||(g&&index==1))&&segments.size()<100) {
       segments.add(new HookSegment(player.pos.x, player.pos.y, index, segments.size()));
     }
     for(int i=segments.size()-1; i>=0; i--) {
