@@ -21,8 +21,7 @@ void setup() {
   blockWidth=width/32;
   blockHeight=height/18;
     
-  map=new Map("mapTiles.png", "hub.txt", "tags.txt", 8, 8, 64, 64);
-  player=new Player(blockWidth*5, height/2);
+  loadData();
 }
 
 void draw() {
@@ -64,6 +63,10 @@ void keyPressed() {
     if(key=='e') e=true;
     if(key=='q') q=true;
     if(key==' ') space=true;
+  }
+  if(key=='o') {
+    writeData();
+    exit();
   }
 }
 
