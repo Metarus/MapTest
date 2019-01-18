@@ -22,7 +22,7 @@ void setup() {
   blockHeight=height/18;
     
   map=new Map("mapTiles.png", "hub.txt", "tags.txt", 8, 8, 64, 64);
-  player=new Player(blockWidth*4, height/2);
+  player=new Player(blockWidth*5, height/2);
 }
 
 void draw() {
